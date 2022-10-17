@@ -6,6 +6,7 @@ const path = require("path")
 const util = require("util")
 const writeFile= util.promisify(fs.writeFile)
 const readFile= util.promisify(fs.readFile)
+const { v4: uuidv4 } = require("uuid");
 function getNotes(){
     return readFile("db/db.json","utf-8").then(rawNotes =>{
         return JSON.parse(rawNotes)
@@ -30,7 +31,7 @@ app.post("/api/notes",(req,res)=>{
         var updatedNotes=[...oldNotes,{
             title: req.body.title,
             text: req.body.text,
-            id: "1234"
+            id:{ v4: uuidv4() }
         }]
        writeFile("db/db.json",JSON.stringify(updatedNotes))
     }).then(()=>res.json({
