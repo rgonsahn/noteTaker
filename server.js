@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const app = express();
-const port = 3001;
+const PORT = process.env.PORT||3001;
 const path = require("path")
 const util = require("util")
 const writeFile= util.promisify(fs.writeFile)
@@ -38,4 +38,4 @@ app.post("/api/notes",(req,res)=>{
         msg:"ok"
     }))
 })
-app.listen(port, () => console.log("listening on:" + port))
+app.listen(PORT, () => console.log("listening on:" + PORT))
